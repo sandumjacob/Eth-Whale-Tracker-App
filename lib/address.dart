@@ -9,7 +9,10 @@ class Address {
   Address.empty() {
     this.key = "0x0000000000000000000000000000000000000000";
   }
-
+  @override
+  String toString() {
+    return key;
+  }
 
 
 }

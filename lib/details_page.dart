@@ -16,11 +16,22 @@ class DetailsPage extends StatelessWidget {
 
   }
 
+  void _onTapDeleteAccount(BuildContext context) {
+    dataController.deleteAccount(index);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Details Page")
+        title: new Text("Details Page"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () =>_onTapDeleteAccount(context)
+          )
+        ],
       ),
       body: Center(
         child: Column(

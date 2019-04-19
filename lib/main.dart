@@ -1,5 +1,6 @@
 import 'package:eth_whale_tracker/account.dart';
 import 'package:eth_whale_tracker/data_controller.dart';
+import 'package:eth_whale_tracker/data_fetcher.dart';
 import 'package:eth_whale_tracker/details_page.dart';
 import 'package:eth_whale_tracker/new_account_page.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ void main() => runApp(MyApp());
 DataController dataController = new DataController();
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,23 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    print(dataController.accounts.length.toString());
   }
 
-  void _addAccount() {
+  void dataFetcherCallback() {
+    //Called when datafetcher has finished processing transactions.
+    print("Callback called");
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      dataController.accounts.add(new Account.empty());
     });
   }
 
   void _onTapAddAccount(BuildContext context, DataController _dataController) {
     Navigator.push(
       context,
-      new MaterialPageRoute(builder: (context) => new NewAccountPage(_dataController)),
+      new MaterialPageRoute(builder: (context) => new NewAccountPage(_dataController, this.dataFetcherCallback)),
     );
   }
 
@@ -81,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onTapSettings() {
-
+      DataFetcher.fetchAccountsData(dataController, this.dataFetcherCallback);
   }
 
   @override

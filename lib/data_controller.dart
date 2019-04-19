@@ -1,4 +1,6 @@
 import 'package:eth_whale_tracker/account.dart';
+import 'package:eth_whale_tracker/address.dart';
+import 'package:eth_whale_tracker/data_fetcher.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -12,6 +14,17 @@ class DataController {
 
   DataController() {
     client = new http.Client();
+  }
+
+  void addAccount(Function callback, Address address) {
+    Account newAccount = new Account.address(address);
+    this.accounts.add(newAccount);
+    //DataFetcher.fetchAccountData(this, this.accounts.length-1, callback);
+    DataFetcher.fetchAccountsData(this, callback); //Change this to the single address function once its implemented
+  }
+
+  void deleteAccount(int index) {
+    this.accounts.removeAt(index);
   }
 
   void main() {

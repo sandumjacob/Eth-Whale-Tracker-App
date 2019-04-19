@@ -17,6 +17,13 @@ class Account {
     this.transactions = _transactions;
   }
 
+  Account.address(Address _accountAddress) {
+    this.accountAddress = _accountAddress;
+    this.accountName = _accountAddress.key;
+    this.accountBalance = 0.0;
+    this.transactions = new List<Transaction>();
+  }
+
   Account.empty() {
     this.accountAddress = new Address.empty();
     this.accountName = this.accountAddress.key;
